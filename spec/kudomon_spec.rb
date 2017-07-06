@@ -15,6 +15,7 @@ describe Kudomon do
     it "takes in a position" do
       expect(kudomon.position).to eq([0, 0])
     end
+    
     it "throws an error if type is invalid" do
       expect { Kudomon.new("Sourbulb", :flying, [0, 0]) }.to raise_error("Invalid type")
     end

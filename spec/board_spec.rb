@@ -23,7 +23,11 @@ describe Board do
     end
 
     it "fills one quarter of board with Kudomon" do
-      expect(board.count).to eq(25)
+      expect(board.kudomon_count).to eq(25)
+    end
+
+    it "adds a default trainer" do
+      expect(board.trainer_position).to_not be_nil
     end
   end
 end
