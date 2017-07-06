@@ -1,5 +1,5 @@
 require 'trainer'
-
+require 'byebug'
 describe Trainer do
   subject(:trainer) { Trainer.new("James", [0, 0]) }
 
@@ -18,13 +18,24 @@ describe Trainer do
   end
 
   describe "#catch" do
-    let(:kudomon) { double("kudomon", in_range?: true) }
-    
+    let(:kudomon) { double("kudomon", in_range?: true, status: :free) }
+
     it "adds Kudomon to collection if in range" do
+      allow(kudomon).to receive(:status=)
       expect(kudomon).to receive(:in_range?).with(trainer.position)
 
       trainer.catch(kudomon)
       expect(trainer.kudomon).to include(kudomon)
+    end
+
+    it "raises an error if Kudomon is already caught" do
+      kudomon = double("kudomon", in_range?: true, status: :being_caught)
+      expect { trainer.catch(kudomon) }.to raise_error("Kudomon being caught by another trainer")
+    end
+
+    it "raises an error if Kudomon is being caught" do
+      kudomon = double("kudomon", in_range?: true, status: :caught)
+      expect { trainer.catch(kudomon) }.to raise_error("Kudomon already caught")
     end
   end
 end

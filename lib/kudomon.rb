@@ -11,6 +11,7 @@ class Kudomon
   TYPES = %i{grass fire electric water rock psychic}
 
   attr_reader :species, :type, :position
+  attr_accessor :status
 
   def initialize(species, type, position)
     raise "Invalid type" unless TYPES.include?(type)
@@ -18,6 +19,7 @@ class Kudomon
     @species = species
     @type = type
     @position = position
+    @status = :free
   end
 
   def in_range?(trainer_position)
