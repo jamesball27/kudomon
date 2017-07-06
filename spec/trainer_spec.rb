@@ -16,4 +16,15 @@ describe Trainer do
       expect(trainer.kudomon).to be_empty
     end
   end
+
+  describe "#catch" do
+    let(:kudomon) { double("kudomon", in_range?: true) }
+    
+    it "adds Kudomon to collection if in range" do
+      expect(kudomon).to receive(:in_range?).with(trainer.position)
+
+      trainer.catch(kudomon)
+      expect(trainer.kudomon).to include(kudomon)
+    end
+  end
 end

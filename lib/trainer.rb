@@ -9,12 +9,6 @@ class Trainer
   end
 
   def catch(kudomon)
-    if kudomon.in_range?(position)
-      @kudomon << kudomon
-    end
-  end
-
-  def nearby_kudomon
-    
+    @kudomon << kudomon if kudomon.in_range?(position)
   end
 end
