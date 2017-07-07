@@ -21,8 +21,8 @@ describe Trainer do
     let(:kudomon) { double("kudomon", in_range?: true, status: :free) }
 
     it "adds Kudomon to collection if in range" do
-      allow(kudomon).to receive(:status=)
       expect(kudomon).to receive(:in_range?).with(trainer.position)
+      expect(kudomon).to receive(:status=).twice
 
       trainer.catch(kudomon)
       expect(trainer.kudomon).to include(kudomon)
