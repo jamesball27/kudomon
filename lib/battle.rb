@@ -1,5 +1,3 @@
-require 'byebug'
-
 class Battle
 
   SUPER_EFFECTIVE = {
@@ -23,7 +21,7 @@ class Battle
   def run
     until over?
       attack
-      set_winner
+      set_current_winner
       swap_kudomon
     end
 
@@ -47,7 +45,7 @@ class Battle
     SUPER_EFFECTIVE[attacker.type] == defender.type
   end
 
-  def set_winner
+  def set_current_winner
     self.winner =
       attacker.hp < defender.hp ? defender : attacker
   end
@@ -57,4 +55,5 @@ class Battle
     self.attacker = kudomon[0]
     self.defender = kudomon[1]
   end
+  
 end

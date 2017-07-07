@@ -1,4 +1,5 @@
 class Kudomon
+
   SPECIES = {
     "Sourbulb" => :grass,
     "Mancharred" => :fire,
@@ -35,10 +36,9 @@ class Kudomon
     ]
 
     trainer_x, trainer_y = trainer_position
-    deltas.each do |(dx, dy)|
-      return true if [trainer_x + dx, trainer_y + dy] == position
+    deltas.any? do |(dx, dy)|
+      [trainer_x + dx, trainer_y + dy] == position
     end
-
-    false
   end
+
 end

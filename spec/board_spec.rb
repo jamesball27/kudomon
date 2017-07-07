@@ -15,8 +15,8 @@ describe Board do
     end
   end
 
-  describe "::populate" do
-    subject(:board) { Board.populate }
+  describe "::default" do
+    subject(:board) { Board.default }
 
     it "returns a board instance" do
       expect(board).to be_a(Board)
@@ -26,8 +26,8 @@ describe Board do
       expect(board.kudomon_count).to eq(25)
     end
 
-    it "adds a default trainer" do
-      expect(board.trainer_position).to_not be_nil
+    it "adds three default trainers" do
+      expect(board.trainer_count).to be 3
     end
   end
 end

@@ -1,41 +1,31 @@
 require_relative './kudomon'
-require 'byebug'
+require_relative './trainer'
+
 class Board
 
-  def self.populate(size = 10)
-    board = Board.new(size)
-
-    kudomon_number = (size * size) / 4
-    kudomon_number.times do
-      pos = board.random_nil_position
-      species = Kudomon::SPECIES.keys.sample
-      type = Kudomon::SPECIES[species]
-      kudomon = Kudomon.new(species, type, pos)
-      board[pos] = kudomon
-    end
-
-    trainer_pos = board.random_nil_position
-    trainer = Trainer.new("James", trainer_pos)
-    board[trainer_pos] = trainer
-
+  def self.default
+    board = Board.new
+    board.populate_random_kudomon
+    board.populate_default_trainers
     board
   end
 
   attr_reader :grid, :size
 
-  def initialize(size)
+  def initialize(size = 10)
     @grid = Array.new(size) { Array.new(size) }
     @size = size
   end
 
-  def trainer_position
+  def trainer_count
+    count = 0
     (0...size).each do |row|
       (0...size).each do |col|
         pos = [row, col]
-        return pos if self[pos].is_a?(Trainer)
+        count += 1 if self[pos].is_a?(Trainer)
       end
     end
-    nil
+    count
   end
 
   def kudomon_count
@@ -47,6 +37,30 @@ class Board
       end
     end
     count
+  end
+
+  def populate_random_kudomon(number = 25)
+    number.times do
+      pos = random_nil_position
+      species = Kudomon::SPECIES.keys.sample
+      type = Kudomon::SPECIES[species]
+      hp = rand(10..100)
+      cp = rand(1..25)
+      kudomon = Kudomon.new(species, type, pos, hp, cp)
+      self[pos] = kudomon
+    end
+
+    self
+  end
+
+  def populate_default_trainers
+    Trainer::DEFAULT_NAMES.each do |name|
+      trainer_pos = random_nil_position
+      trainer = Trainer.new(name, trainer_pos)
+      self[trainer_pos] = trainer
+    end
+
+    self
   end
 
   def random_nil_position
@@ -69,4 +83,5 @@ class Board
     row, col = pos
     @grid[row][col] = val
   end
+
 end
