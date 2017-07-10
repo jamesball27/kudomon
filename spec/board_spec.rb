@@ -26,8 +26,8 @@ describe Board do
       expect(board.kudomon_count).to eq(25)
     end
 
-    it "adds three default trainers" do
-      expect(board.trainer_count).to be 3
+    it "adds a default trainer" do
+      expect(board.trainer_count).to be 1
     end
   end
 end

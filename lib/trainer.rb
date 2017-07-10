@@ -1,8 +1,7 @@
 class Trainer
 
-  DEFAULT_NAMES = ["James", "Freddy", "Matt"]
-
-  attr_reader :name, :position, :kudomon
+  attr_reader :name, :kudomon
+  attr_accessor :position
 
   def initialize(name, position)
     @name = name
@@ -18,6 +17,11 @@ class Trainer
     kudomon.status = :being_caught
     @kudomon << kudomon
     kudomon.status = :caught
+    self.kudomon
+  end
+
+  def to_s
+    "T"
   end
 
 end

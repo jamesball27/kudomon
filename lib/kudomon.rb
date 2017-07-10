@@ -41,4 +41,11 @@ class Kudomon
     end
   end
 
+  def to_s
+    "K"
+  end
+
+  def display
+    puts "Species: #{species}, type: #{type}, hp: #{hp}, cp: #{cp}"
+  end
 end
